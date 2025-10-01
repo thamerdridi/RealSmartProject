@@ -9,11 +9,12 @@ contract RealSmartTokenV1 is OwnableUpgradeable, UUPSUpgradeable, ERC20PausableU
     constructor() { _disableInitializers(); }
 
 
-    function initialize(string memory _name, string memory _symbol) initializer public {
-        __Ownable_init(msg.sender);
+    function initialize(string memory _name, string memory _symbol, address _owner, uint256 _initialSupply) initializer public {
+        __Ownable_init(_owner);
         __UUPSUpgradeable_init();
         __ERC20_init(_name, _symbol);   
         __Pausable_init();
+        _mint(_owner, _initialSupply);
     }
 
     function mint(address to, uint256 amount) external onlyOwner {
